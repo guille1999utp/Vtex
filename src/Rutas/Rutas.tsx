@@ -1,4 +1,4 @@
-import routes from '../config/routes'
+import routes from '../config/Routes'
 import { BrowserRouter as Router,Route,Switch,RouteComponentProps, Redirect } from 'react-router-dom'
 
 export default function Rutas() {

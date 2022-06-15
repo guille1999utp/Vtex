@@ -2,7 +2,7 @@ import { Albums } from "../Albums";
 import { Home } from "../Home";
 import { PlaySong } from "../PlaySong";
 import Routes from "../shared/models/rutas";
-import { Song } from "../Song";
+import { SongPage } from "../Song";
 
 const routes: Routes[] = [
     {
@@ -12,7 +12,7 @@ const routes: Routes[] = [
         component:Home
     },
     {
-        path:"/:id/albums",
+        path:"/artists/:id/albums",
         name:"albums",
         exact:true,
         component:Albums
@@ -21,7 +21,7 @@ const routes: Routes[] = [
         path:"/:id/canciones",
         name:"canciones",
         exact:true,
-        component:Song
+        component:SongPage
     },
     {
         path:"/:id/reproduccion",
