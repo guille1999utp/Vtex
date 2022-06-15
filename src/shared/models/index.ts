@@ -1,4 +1,4 @@
-import { Album } from './albums'
+import { Album, ArtistAlbum } from './albums'
 import { Artist} from './artist'
 export * from './rutas'
 export * from "./artist"
@@ -9,6 +9,8 @@ export interface AppContext {
 	formData: Artist
 	dataAlbum:Album
     setAlbum:(arista:Album)=>any
+	setAlbums:(arista:ArtistAlbum)=>any
+	albumsContext:ArtistAlbum
 }
 
 export type FormData = { [key: string]: any } 

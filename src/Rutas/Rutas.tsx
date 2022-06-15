@@ -1,9 +1,11 @@
 import routes from '../config/Routes'
 import { BrowserRouter as Router,Route,Switch,RouteComponentProps, Redirect } from 'react-router-dom'
+import ButtonAppBar from "../appBar"
 
 export default function Rutas() {
     return (
     <Router>
+        <ButtonAppBar/>
         <Switch>
             {
                 routes.map((route,index)=>{
