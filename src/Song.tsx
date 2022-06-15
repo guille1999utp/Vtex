@@ -9,17 +9,17 @@ import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText, Stack, T
 export const SongPage:FC = () => {
   const { id } = useParams<Params>();
   let history = useHistory();
-  const { dataAlbum, albumsContext } = useAppContext() || {}
+  const { dataAlbum, albumsContext, setAllMusic,setSong } = useAppContext() || {}
   const [album, setAlbum] = useState<Song>({album:0,songs:[]});
   const [sugerencias, setSugerencias] = useState<PreviewSong[]>([]);
 
   const albumsSugerencias:number[] = albumsContext?.albums.map((albumContext)=>albumContext.id - 1) || [];
-
   const obtenerproductos = useCallback(
     async() => {
       const data: Songs = await useFetch(`albums/${id}/songs`);
       const albums:Song = selectAlbum(data,Number(id));
       let rand:number[] = [];
+      let allMusicImport:PreviewSong[] = [];
        rand[0] = Math.floor(Math.random()*albumsSugerencias?.length);
        rand[1] = Math.floor(Math.random()*albumsSugerencias?.length);
        rand[2] = Math.floor(Math.random()*albumsSugerencias?.length);
@@ -27,6 +27,12 @@ export const SongPage:FC = () => {
       rand = rand.filter((item,index)=>{
         return rand.indexOf(item) === index;
       })
+
+      for (let i = 0; i < albumsSugerencias.length; i++) {
+        allMusicImport = [...allMusicImport,...data[albumsSugerencias[i]].songs];
+      }
+      setAllMusic?.( allMusicImport || [] );
+
       setSugerencias([data[albumsSugerencias[rand[0]]].songs[0],data[albumsSugerencias[rand[1]]].songs[0],data[albumsSugerencias[rand[2]]].songs[0],data[albumsSugerencias[rand[3]]].songs[0]])
       setAlbum(albums);
     }, [],
@@ -35,8 +41,10 @@ export const SongPage:FC = () => {
     obtenerproductos()
    },[obtenerproductos])
   
-  const pagePlaySong = (id:number) =>{
-    history.push(`/${id}/reproduccion`);
+  const pagePlaySong = (song:PreviewSong) =>{
+    song.preview_url = dataAlbum?.image || "";
+    setSong?.(song);
+    history.push(`/${song.id}/reproduccion`);
   }
   return (<>
     <Box sx={{width:"100%",background:"rgb(29,29,29)"}}>
@@ -59,7 +67,7 @@ export const SongPage:FC = () => {
 
     </List>
     </Box>
-    <Box sx={{width:"100%",background:"black"}}>
+  <Box sx={{width:"100%",background:"black"}}>
   <Stack sx={{padding:"30px",margin:"auto"}}>
   <Typography  component="h4" variant="h5"  color="white" sx={{mb:"20px"}} fontWeight="bold">Canciones</Typography>
   <List
@@ -71,7 +79,7 @@ export const SongPage:FC = () => {
         return <>
         <ListItem button secondaryAction={
           <Typography>{secondsToString(song.duration_ms)}</Typography>
-        } onClick={()=>pagePlaySong(song.id)}>
+        } onClick={()=>pagePlaySong(song)}>
         <ListItemAvatar>
           {index+1}
         </ListItemAvatar>
@@ -97,7 +105,7 @@ export const SongPage:FC = () => {
         return <>
         <ListItem button secondaryAction={
           <Typography>{secondsToString(song.duration_ms)}</Typography>
-        } onClick={()=>pagePlaySong(song.id)}>
+        } onClick={()=>pagePlaySong(song)}>
         <ListItemAvatar>
           {index+1}
         </ListItemAvatar>

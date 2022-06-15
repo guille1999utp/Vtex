@@ -1,5 +1,6 @@
 import { Album, ArtistAlbum } from './albums'
 import { Artist} from './artist'
+import { PreviewSong } from './songs'
 export * from './rutas'
 export * from "./artist"
 export * from "./albums"
@@ -9,8 +10,12 @@ export interface AppContext {
 	formData: Artist
 	dataAlbum:Album
     setAlbum:(arista:Album)=>any
-	setAlbums:(arista:ArtistAlbum)=>any
+	setAlbums:(artisAlbums:ArtistAlbum)=>any
+	setAllMusic:(allSongs:PreviewSong[])=>any
+	setSong:(song:PreviewSong)=>any
 	albumsContext:ArtistAlbum
+	allMusica:PreviewSong[]
+	songSelect:PreviewSong
 }
 
 export type FormData = { [key: string]: any } 
