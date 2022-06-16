@@ -54,7 +54,7 @@ export const SongPage:FC = () => {
         padding:"40px"
       }}
     >
-        <ListItem >
+        <ListItem className='Inicio_Song'>
         <ListItemAvatar>
           <Avatar alt={dataAlbum?.name }
                   src={dataAlbum?.image}
@@ -62,7 +62,7 @@ export const SongPage:FC = () => {
                   variant="square">
           </Avatar>
         </ListItemAvatar>
-        <ListItemText sx={{marginLeft:"40px"}} primary={<Typography sx={{mb:"20px"}} component="h5" variant="h5" fontWeight="bold">{dataAlbum?.name}</Typography>} secondary={<Typography sx={{mb:"20px"}} component="p" variant="body1" >{`Album • ${dataAlbum?.name}`}<Typography sx={{mb:"20px"}} component="p" variant="body1" >{`${album?.songs.length} canciones • ${secondsAddToString(album)}`}</Typography></Typography>} />
+        <ListItemText className='SubTitle_Song' sx={{marginLeft:"40px"}} primary={<Typography sx={{mb:"20px"}} component="h5" variant="h5" fontWeight="bold">{dataAlbum?.name}</Typography>} secondary={<Typography sx={{mb:"20px"}} component="p" variant="body1" >{`Album • ${dataAlbum?.name}`}<Typography sx={{mb:"20px"}} component="p" variant="body1" >{`${album?.songs.length} canciones • ${secondsAddToString(album)}`}</Typography></Typography>} />
         </ListItem>
 
     </List>

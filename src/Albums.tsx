@@ -52,7 +52,7 @@ export const Albums:FC = () => {
   </Box>
   </Box>
   <Box sx={{width:"100%",background:"rgb(48,48,48)"}}>
-  <Stack sx={{padding:"30px",maxWidth:"1200px",margin:"auto"}}>
+  <Stack className='stack_Albumbs' sx={{padding:"30px",maxWidth:"1200px",margin:"auto"}}>
   <Typography  component="h4" variant="h5"  color="white" sx={{mb:"20px"}}>Albumes</Typography>
   <List
       sx={{

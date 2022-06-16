@@ -87,10 +87,10 @@ export const PlaySong:FC = () => {
   </Box>
 
 
-  <Box sx={{width:"100%",background:"rgb(29,29,29)",display:"flex",justifyContent:"space-between"}}>
-    <Stack sx={{padding:"0px 20px 0px 20px",height:"61px"}}>
+  <Box sx={{width:"100%",background:"rgb(29,29,29)",display:"flex",justifyContent:"space-between",flexWrap:"wrap"}}>
+    <Stack className="repro_Play" sx={{padding:"0px 20px 0px 20px",height:"61px"}}>
     <Box sx={{height:"100%",display:"flex"}}>
-    <SkipPreviousIcon sx={{color:"rgb(169,171,171)",mt:"14px",mr:"26px"}} fontSize="large"/>
+    <IconButton sx={{padding:"0"}}><SkipPreviousIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
     <Box sx={{minWidth:"280px",padding:"16px",background:"rgb(241,243,244)",height:"90%",mt:"7px",borderRadius:"30px",display:"flex",alignItems:"self-end"}}>
     <PlayArrowIcon sx={{color:"rgb(169,171,171)"}} />
     <Typography component="p" marginLeft={1} variant="body2" fontSize="0.78rem" color="primary">{CalcTime(songSelect?.duration_ms || "0", volumen)+ " / "}</Typography>
@@ -101,7 +101,7 @@ export const PlaySong:FC = () => {
       max={Number(songSelect?.duration_ms)}
       onChange={handleChange}
       value={volumen}
-      sx={{width:"80px",pt:"3px",ml:"15px",color:"rgb(169,171,171)",'& .MuiSlider-thumb': {
+      sx={{width:"80px",padding:"8px 0px !important",pt:"3px",ml:"15px",color:"rgb(169,171,171)",'& .MuiSlider-thumb': {
         width: 8,
         height: 8,
         transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
@@ -123,9 +123,12 @@ export const PlaySong:FC = () => {
     />
     <VolumeUpIcon sx={{color:"rgb(169,171,171)",pt:"2px",ml:"6px"}}/>
     </Box>
-    <SkipNextIcon sx={{color:"rgb(169,171,171)",mt:"14px",ml:"26px"}} fontSize="large"/>
+    <IconButton sx={{padding:"0"}}> <SkipNextIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
 
-    <List sx={{ width: '100%', maxWidth: 360,pt:"0"}}>
+    </Box>
+    </Stack>
+
+    <List className='listOptions' sx={{ width: '100%', maxWidth: 360,pt:"0"}}>
       <ListItem sx={{padding:"0",pt:"5px",pl:"47px"}}>
         <ListItemAvatar>
           <Avatar variant="rounded" src={songSelect?.preview_url}/>
@@ -133,23 +136,22 @@ export const PlaySong:FC = () => {
         <ListItemText primary={songSelect?.name.substring(0,20)} secondary={"duracion " + secondsToString(songSelect?.duration_ms || "0")} />
       </ListItem>
     </List>
-    </Box>
-    </Stack>
 
-    <Stack sx={{height:"61px",display:"flex",flexDirection:"row"}}>
-    <IconButton aria-label="reproducir" size="large" sx={{ml:"20px"}}>
+
+    <Stack className='submenu_Play' sx={{height:"61px",display:"flex",flexDirection:"row"}}>
+<IconButton className="button_Submenu" aria-label="reproducir" size="large" sx={{ml:"20px"}}>
   <PlayCircleIcon fontSize="large" />
 </IconButton>
-<IconButton aria-label="shuflle" size="large" sx={{ml:"20px"}}>
+<IconButton className="button_Submenu" aria-label="shuflle" size="large" sx={{ml:"20px"}}>
   <ShuffleIcon fontSize="large" />
 </IconButton>
-<IconButton aria-label="barra para abajo" size="large" sx={{ml:"20px"}}>
+<IconButton className="button_Submenu" aria-label="barra para abajo" size="large" sx={{ml:"20px"}}>
   <ArrowDropDownIcon fontSize="large" />
 </IconButton>
-<IconButton aria-label="ampliar" size="large" sx={{ml:"20px"}}>
+<IconButton className="button_Submenu" aria-label="ampliar" size="large" sx={{ml:"20px"}}>
   <ZoomOutMapIcon fontSize="large" />
 </IconButton>
-<IconButton aria-label="mas opciones" size="large" sx={{ml:"20px"}}>
+<IconButton className="button_Submenu" aria-label="mas opciones" size="large" sx={{ml:"20px"}}>
   <MoreVertIcon fontSize="large" />
 </IconButton>
     </Stack>
