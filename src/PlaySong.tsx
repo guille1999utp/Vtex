@@ -90,9 +90,9 @@ export const PlaySong:FC = () => {
   <Box sx={{width:"100%",background:"rgb(29,29,29)",display:"flex",justifyContent:"space-between",flexWrap:"wrap"}}>
     <Stack className="repro_Play" sx={{padding:"0px 20px 0px 20px",height:"61px"}}>
     <Box sx={{height:"100%",display:"flex"}}>
-    <IconButton sx={{padding:"0"}}><SkipPreviousIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
+    <IconButton sx={{padding:"0" ,height: "35px",marginTop:"15px"}}><SkipPreviousIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
     <Box sx={{minWidth:"280px",padding:"16px",background:"rgb(241,243,244)",height:"90%",mt:"7px",borderRadius:"30px",display:"flex",alignItems:"self-end"}}>
-    <PlayArrowIcon sx={{color:"rgb(169,171,171)"}} />
+    <PlayArrowIcon sx={{color:"rgb(169,171,171)",cursor:"pointer"}} />
     <Typography component="p" marginLeft={1} variant="body2" fontSize="0.78rem" color="primary">{CalcTime(songSelect?.duration_ms || "0", volumen)+ " / "}</Typography>
     <Typography component="p" variant="body2" fontSize="0.78rem" color="primary">{secondsToString(songSelect?.duration_ms || "0")}</Typography>
     <Slider
@@ -121,9 +121,9 @@ export const PlaySong:FC = () => {
       },
       }}
     />
-    <VolumeUpIcon sx={{color:"rgb(169,171,171)",pt:"2px",ml:"6px"}}/>
+    <VolumeUpIcon sx={{color:"rgb(169,171,171)",pt:"2px",ml:"6px",cursor:"pointer"}}/>
     </Box>
-    <IconButton sx={{padding:"0"}}> <SkipNextIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
+    <IconButton sx={{padding:"0",height: "35px",marginTop:"15px"}}> <SkipNextIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
 
     </Box>
     </Stack>

@@ -78,12 +78,12 @@ export const SongPage:FC = () => {
       {album.songs.map((song,index)=>{
         return <>
         <ListItem button secondaryAction={
-          <Typography>{secondsToString(song.duration_ms)}</Typography>
+          <Typography >{secondsToString(song.duration_ms)}</Typography>
         } onClick={()=>pagePlaySong(song)}>
         <ListItemAvatar>
           {index+1}
         </ListItemAvatar>
-        <ListItemText primary={song.name} />
+        <ListItemText primary={song.name} sx={{pr:"10px"}}/>
         
         </ListItem>
         <Divider variant="inset" component="li" />
@@ -109,7 +109,7 @@ export const SongPage:FC = () => {
         <ListItemAvatar>
           {index+1}
         </ListItemAvatar>
-        <ListItemText primary={song.name} />
+        <ListItemText primary={song.name} sx={{pr:"10px"}}/>
         
         </ListItem>
         <Divider variant="inset" component="li" />
