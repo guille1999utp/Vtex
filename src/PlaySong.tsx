@@ -1,11 +1,9 @@
 import { Avatar, Badge, Box, Chip, Stack, Typography,Divider, List, ListItem, ListItemAvatar, ListItemText, Slider, IconButton } from '@mui/material'
-import {FC,useState} from 'react'
+import {FC,useEffect,useState} from 'react'
 import { PreviewSong, useAppContext} from './shared';
 import StarRateIcon from '@mui/icons-material/StarRate';
-import { CalcTime, secondsToString } from './helpers';
+import {  secondsToString } from './helpers';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -16,19 +14,33 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 export const PlaySong:FC = () => {
-  const { formData, allMusica, songSelect, setSong } = useAppContext() || {}
-  const [volumen, setVol] = useState<number>(0);
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    if (typeof newValue === 'number') {
-      setVol(newValue);
+  const { formData, allMusica, songSelect, setSong,setAllMusic,resetMusic } = useAppContext() || {}
+  const [mostrar, setMostrar] = useState<boolean>(false);
+  const [Posicion, setPosicion] = useState<number>(0);
+
+  const newSong = (song:PreviewSong,index:number) =>{
+    setPosicion(index);
+    setMostrar(false);
+    setSong?.(song);
+  }
+
+  const replayPosicion = (direcction:boolean) =>{
+    if(direcction !== undefined && allMusica !== undefined){
+      setMostrar(false);
+      setSong?.(allMusica[Posicion - 1]);
+      setPosicion(Posicion - 1)
+    }else if(allMusica !== undefined){
+      setMostrar(false);
+      setSong?.(allMusica[Posicion + 1]);
+      setPosicion(Posicion + 1)
     }
     
-  };
-
-  const newSong = (song:PreviewSong) =>{
-    setSong?.(song);
-    setVol(0);
   }
+
+  useEffect(() => {
+    setMostrar(true);
+  }, [songSelect,Posicion])
+  
   
   return (
     <>
@@ -67,11 +79,11 @@ export const PlaySong:FC = () => {
         width: '100%',
       }}
     >
-      {allMusica?.map((song)=>{
+      {allMusica?.map((song,index)=>{
         return <>
         <ListItem button secondaryAction={
           <Typography>{secondsToString(song.duration_ms)}</Typography>
-        } onClick={()=>newSong(song)}>
+        } onClick={()=>newSong(song,index)}>
         <ListItemAvatar>
           <Avatar sx={{ bgcolor: "gray" }}>
             <InsertPhotoIcon />
@@ -90,40 +102,11 @@ export const PlaySong:FC = () => {
   <Box sx={{width:"100%",background:"rgb(29,29,29)",display:"flex",justifyContent:"space-between",flexWrap:"wrap"}}>
     <Stack className="repro_Play" sx={{padding:"0px 20px 0px 20px",height:"61px"}}>
     <Box sx={{height:"100%",display:"flex"}}>
-    <IconButton sx={{padding:"0" ,height: "35px",marginTop:"15px"}}><SkipPreviousIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
-    <Box sx={{minWidth:"280px",padding:"16px",background:"rgb(241,243,244)",height:"90%",mt:"7px",borderRadius:"30px",display:"flex",alignItems:"self-end"}}>
-    <PlayArrowIcon sx={{color:"rgb(169,171,171)",cursor:"pointer"}} />
-    <Typography component="p" marginLeft={1} variant="body2" fontSize="0.78rem" color="primary">{CalcTime(songSelect?.duration_ms || "0", volumen)+ " / "}</Typography>
-    <Typography component="p" variant="body2" fontSize="0.78rem" color="primary">{secondsToString(songSelect?.duration_ms || "0")}</Typography>
-    <Slider
-      min={0}
-      step={1}
-      max={Number(songSelect?.duration_ms)}
-      onChange={handleChange}
-      value={volumen}
-      sx={{width:"80px",padding:"8px 0px !important",pt:"3px",ml:"15px",color:"rgb(169,171,171)",'& .MuiSlider-thumb': {
-        width: 8,
-        height: 8,
-        transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
-        '&:before': {
-          boxShadow: '0 2px 12px 0 rgba(0,0,0,0.4)',
-        },
-        '&:hover, &.Mui-focusVisible': {
-          boxShadow: "0px 0px 0px 8px"
-        },
-        '&.Mui-active': {
-          width: 20,
-          height: 20,
-        },
-      },
-      '& .MuiSlider-rail': {
-        opacity: 0.28,
-      },
-      }}
-    />
-    <VolumeUpIcon sx={{color:"rgb(169,171,171)",pt:"2px",ml:"6px",cursor:"pointer"}}/>
-    </Box>
-    <IconButton sx={{padding:"0",height: "35px",marginTop:"15px"}}> <SkipNextIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
+    <IconButton sx={{padding:"0" ,height: "35px",marginTop:"15px"}} onClick={()=>replayPosicion(true)}><SkipPreviousIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
+    {(mostrar)?<audio controls style={{marginTop:"7px"}} autoPlay>
+    <source src={songSelect?.preview_url} />
+    </audio>:null}
+    <IconButton sx={{padding:"0",height: "35px",marginTop:"15px"}} onClick={()=>replayPosicion(false)}> <SkipNextIcon sx={{color:"rgb(169,171,171)"}} fontSize="large"/></IconButton>
 
     </Box>
     </Stack>

@@ -1,4 +1,4 @@
-import {FC,useCallback,useEffect,useState} from 'react'
+import {FC,useCallback,useEffect} from 'react'
 import { selectArtist, useFetch } from './helpers';
 import { ArtistsAlbums,ArtistAlbum, useAppContext, Params, Album } from './shared';
 import { useHistory,useParams } from "react-router-dom";
@@ -10,7 +10,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 
 export const Albums:FC = () => {
-  const { formData, setAlbum, setAlbums, albumsContext } = useAppContext() || {}
+  const { formData, setAlbum, setAlbums, albumsContext,resetMusic } = useAppContext() || {}
   const { id } = useParams<Params>();
   let history = useHistory();
   const obtenerproductos = useCallback(
@@ -24,6 +24,10 @@ export const Albums:FC = () => {
     obtenerproductos()
    },[obtenerproductos])
   
+   useEffect( ()=>{
+    resetMusic?.();
+   },[])
+
   const pageAlbum = (alb:Album) =>{
     setAlbum?.(alb)
     history.push(`/${alb.id}/canciones`);

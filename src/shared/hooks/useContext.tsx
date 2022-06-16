@@ -33,6 +33,10 @@ export const ContextProvider = ({ children }:props) => {
     setMusic([...allMusica,...allSongs])
   }
 
+  const resetMusic = () =>{
+    setMusic([]);
+  }
+
   const setSong = (song:PreviewSong) =>{
     setMusicSong(song);
   }
@@ -43,6 +47,7 @@ export const ContextProvider = ({ children }:props) => {
     setAlbums,
     setAllMusic,
     setSong,
+    resetMusic,
     formData,
     dataAlbum,
     albumsContext,

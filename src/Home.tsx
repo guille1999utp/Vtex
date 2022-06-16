@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 export const Home:FC = () => {
   let history = useHistory();
-  const { setForm } = useAppContext() || {}
+  const { setForm , resetMusic} = useAppContext() || {}
   const [artist, setArtist] = useState<Artists>([]);
   
 
@@ -23,6 +23,10 @@ export const Home:FC = () => {
     obtenerproductos()
    },[obtenerproductos])
   
+   useEffect( ()=>{
+    resetMusic?.();
+   },[])
+
   const pageAlbums = (artist:Artist) =>{
     setForm?.( artist );
     history.push(`artists/${artist.id}/albums`);

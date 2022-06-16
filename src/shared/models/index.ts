@@ -16,6 +16,7 @@ export interface AppContext {
 	albumsContext:ArtistAlbum
 	allMusica:PreviewSong[]
 	songSelect:PreviewSong
+	resetMusic:()=>any
 }
 
 export type FormData = { [key: string]: any } 

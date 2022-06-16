@@ -4,11 +4,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useHistory } from "react-router-dom";
+import {useAppContext } from './shared';
 
 export default function ButtonAppBar() {
   let history = useHistory();
+  const { resetMusic } = useAppContext() || {}
 
   const redirect = (direccion:string) => {
+    resetMusic?.();
     history.push(direccion);
     }
   return (

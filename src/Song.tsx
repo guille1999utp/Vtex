@@ -31,6 +31,7 @@ export const SongPage:FC = () => {
       for (let i = 0; i < albumsSugerencias.length; i++) {
         allMusicImport = [...allMusicImport,...data[albumsSugerencias[i]].songs];
       }
+      allMusicImport.reverse();
       setAllMusic?.( allMusicImport || [] );
 
       setSugerencias([data[albumsSugerencias[rand[0]]].songs[0],data[albumsSugerencias[rand[1]]].songs[0],data[albumsSugerencias[rand[2]]].songs[0],data[albumsSugerencias[rand[3]]].songs[0]])
@@ -42,7 +43,6 @@ export const SongPage:FC = () => {
    },[obtenerproductos])
   
   const pagePlaySong = (song:PreviewSong) =>{
-    song.preview_url = dataAlbum?.image || "";
     setSong?.(song);
     history.push(`/${song.id}/reproduccion`);
   }
