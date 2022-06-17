@@ -25,7 +25,8 @@ export const PlaySong:FC = () => {
   }
 
   const replayPosicion = (direcction:boolean) =>{
-    if(direcction !== undefined && allMusica !== undefined){
+    if((Posicion === 0 && direcction === true) || (Posicion === ((allMusica?.length || 1) - 1) && direcction === false)) return;
+    if(direcction === true && allMusica !== undefined){
       setMostrar(false);
       setSong?.(allMusica[Posicion - 1]);
       setPosicion(Posicion - 1)
@@ -81,7 +82,7 @@ export const PlaySong:FC = () => {
     >
       {allMusica?.map((song,index)=>{
         return <>
-        <ListItem button secondaryAction={
+        <ListItem key={song.id} button secondaryAction={
           <Typography>{secondsToString(song.duration_ms)}</Typography>
         } onClick={()=>newSong(song,index)}>
         <ListItemAvatar>

@@ -39,7 +39,8 @@ export const SongPage:FC = () => {
     }, [],
   )
   useEffect( ()=>{
-    obtenerproductos()
+
+    obtenerproductos();
    },[obtenerproductos])
   
   const pagePlaySong = (song:PreviewSong) =>{
